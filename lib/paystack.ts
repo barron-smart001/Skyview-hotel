@@ -1,0 +1,2 @@
+const BASE="https://api.paystack.co";
+export async function paystack(path:string,init:RequestInit={}){const key=process.env.PAYSTACK_SECRET_KEY;if(!key)throw new Error("PAYSTACK_SECRET_KEY is missing");const res=await fetch(`${BASE}${path}`,{...init,headers:{Authorization:`Bearer ${key}`,"Content-Type":"application/json",...(init.headers||{})},cache:"no-store"});const json=await res.json();if(!res.ok||!json.status)throw new Error(json.message||"Paystack request failed");return json}
