@@ -8,7 +8,10 @@ export function isSupabaseConfigured() {
 
   try {
     const parsedUrl = new URL(url);
-    return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
+    const validProtocol = parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
+    const isSupabaseWebsite = parsedUrl.hostname === "supabase.com" || parsedUrl.hostname === "www.supabase.com";
+
+    return validProtocol && !isSupabaseWebsite;
   } catch {
     return false;
   }
